@@ -9,16 +9,14 @@ async function renderLoginPage(req, res) {
 async function authLoginData(req, res) {
   console.log(req.body);
   const { email, password } = req.body;
-  console.log(email);
 
   try {
     const user = await User.findOne({ email: email });
-    console.log(user);
+
     if (!user)
       return res.render("signin", {
         sms: "This email I'd is not registered! Pls signin",
       });
-    console.log(user);
 
     const isMatch = await bcrypt.compare(password, user.password);
     console.log(isMatch);

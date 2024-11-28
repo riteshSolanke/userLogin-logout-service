@@ -1,12 +1,18 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
 const ejs = require("ejs");
-const PORT = 9000;
+
+// Access environment variables
+const port = process.env.PORT || 3000;
+const mongoUri = process.env.MONGO_URI;
+const sessionSecret = process.env.SESSION_SECRET;
+
 // mongoose connection
 mongoose
-  .connect("mongodb://127.0.0.1:27017/login-logout-userDB")
+  .connect(mongoUri)
   .then(() => console.log(`mongoose connected succesfully`))
   .catch((err) => console.log(`error during mongoose connection ${err}`));
 
@@ -22,7 +28,7 @@ app.set("views", "./views");
 
 app.use(
   session({
-    secret: "your-secret",
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -41,4 +47,4 @@ app.use(express.static("public"));
 app.use("/", staticRouter);
 app.use("/user", userRouter);
 
-app.listen(PORT, () => console.log(`server is running at port number ${PORT}`));
+app.listen(port, () => console.log(`server is running at port number ${port}`));
