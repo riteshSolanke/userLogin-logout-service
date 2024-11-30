@@ -7,31 +7,27 @@ async function renderLoginPage(req, res) {
 }
 
 async function authLoginData(req, res) {
-  console.log(req.body);
   const { email, password } = req.body;
- 
 
   try {
     const user = await User.findOne({ email: email });
-   
+
     if (!user)
-      return res.render("signin", {
-        sms: "This email I'd is not registered! Pls signin",
+      return res.render("login", {
+        sms: "Incorrect username or password",
       });
-    
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(isMatch);
 
     if (!isMatch) {
-      return res.render("login", { sms: "Invalide username or password" });
+      return res.render("login", { sms: "Invalide password!" });
     }
 
     req.session.userId = user._id;
     req.session.isAuthenticated = true;
     req.session.email = user.email;
     res.locals.user = user;
-    return res.render("home");
+    return res.render("home", { sms: "congratulations are you loged in..." });
   } catch (err) {
     console.log(err);
   }
@@ -50,13 +46,15 @@ async function handleSigninData(req, res) {
         sms: "You have already an account, pls login",
       });
 
-    User.create({
+    const newUser = await User.create({
       email,
       username,
       password,
     });
-    // return res.json({ sms: "sucsses" });
-    return res.redirect("/user/login");
+    res.locals.user = newUser;
+    return res.render("home", {
+      sms: "Congratulation! You had succesfully signed up...",
+    });
   } catch (err) {
     console.log(err);
   }

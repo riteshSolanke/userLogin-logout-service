@@ -7,24 +7,31 @@
     <link rel="stylesheet" href="/css/home.css" />
   </head>
   <body>
-    <div class="navbar">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-      <% if (locals.user) { %>
-      <a href="#"><%= user.username %></a>
+    <div class="container">
+      <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <% if (locals.user) { %>
+        <a href="#"><%= user.username %></a>
 
-      <a href="/user/logout">logout</a>
+        <a href="/user/logout">logout</a>
 
-      <% } else { %>
-      <a href="/user/login">Login</a>
+        <% } else { %>
+        <a href="/user/login">Login</a>
+        <% } %>
+      </div>
+
+      <div style="padding: 16px">
+        <h1>Welcome to My Website</h1>
+        <p>This is simple login logout functionality expample</p>
+      </div>
+      <% if (locals.sms) { %>
+      <div class="alert-sms" id="alert-sms">
+        <p><%= locals.sms %></p>
+      </div>
       <% } %>
-    </div>
-
-    <div style="padding: 16px">
-      <h1>Welcome to My Website</h1>
-      <p>This is simple login logout functionality expample</p>
     </div>
 
     <script src="/js/home.js"></script>

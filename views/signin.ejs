@@ -27,6 +27,11 @@
         </form>
         <p>Have an account? <a href="/user/login">Log in</a></p>
       </div>
+      <% if (locals.sms) { %>
+      <div class="alert-sms" id="alert-sms">
+        <p><%= locals.sms %></p>
+      </div>
+      <% } %>
     </div>
     <script src="/js/signin.js"></script>
   </body>

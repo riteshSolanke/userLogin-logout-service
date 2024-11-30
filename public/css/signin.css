@@ -10,6 +10,7 @@ body {
 
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -75,4 +76,22 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+.alert-sms {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  position: fixed;
+  bottom: 10px;
+  transform: translateX(-50%);
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  z-index: 1000;
+}
+.alert-sms.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

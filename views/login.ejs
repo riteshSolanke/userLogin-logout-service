@@ -32,6 +32,11 @@
           <p>Don't have an account? <a href="/user/signin">Sign up</a></p>
         </div>
       </div>
+      <% if (locals.sms) { %>
+      <div class="alert-sms" id="alert-sms">
+        <p><%= locals.sms %></p>
+      </div>
+      <% } %>
     </div>
 
     <script src="/js/login.js"></script>
