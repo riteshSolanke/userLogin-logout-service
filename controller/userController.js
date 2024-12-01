@@ -67,7 +67,9 @@ async function handleLogoutUser(req, res) {
       return res.status(500).send("Could not log out");
     }
     res.clearCookie("connect.sid");
-    res.redirect("/");
+    res.render("home", {
+      sms: "Congratulation! You are successfully Log-out..",
+    });
   });
 }
 
